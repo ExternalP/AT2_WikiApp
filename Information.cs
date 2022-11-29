@@ -39,6 +39,10 @@ namespace AT2_WikiApp
             set { dsDefinition = value; }
         }
 
-
+        // Simple compare method to sort by gameName
+        public int CompareTo(Information newInfo)
+        {
+            return this.dsName.CompareTo(newInfo.dsName);
+        }
     }
 }
