@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+/* Name: Corin Little
+ * ID: P453208
+ * Date: 29/11/2022
+ * Purpose: AT2 - Wiki Application */
 namespace AT2_WikiApp
 {
-    internal class Information
+    class Information : IComparable<Information>
     {
         // Class variables
         private string dsName;
@@ -39,7 +42,7 @@ namespace AT2_WikiApp
             set { dsDefinition = value; }
         }
 
-        // Simple compare method to sort by gameName
+        // Simple compare method to sort by dsName
         public int CompareTo(Information newInfo)
         {
             return this.dsName.CompareTo(newInfo.dsName);

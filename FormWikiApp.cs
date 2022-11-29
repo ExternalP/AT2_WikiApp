@@ -8,7 +8,48 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+/* Name: Corin Little
+ * ID: P453208
+ * Date: 29/11/2022
+ * Purpose: AT2 - Wiki Application */
+/* Case Study – Data Structures Wiki Application
+ * Develop a wiki application using the AT1 prototype to catalogue Data 
+ *  Structures using a List containing a class with the 4 fields Name, 
+ *  Category, Structure & Definition  using a Window Forms Application.
+ * Create a interface for the app & can save the input data to file.
+ * Need to use GitHub version control for project.
+ *  - 2 class: FormWikiApp.cs & Information.cs (Information is a simple class) */
+/* Information class: Implements IComparable<T>
+ *  - 5 private string fields with Setters/getters & CompareTo() for name.
+ *  - Name(dsName), Category(dsCategory), Structure(dsStructure) 
+ *      & Definition(dsDefinition). */
+/* FormWikiApp class: 
+ *  - List<Information> Wiki: Global List of data structures info.
+ *  - Can add/edit/delete records
+ *  - Prevent duplicates & filter out numeric/special character inputs.
+ *  - Binary search records by Name which selects it & clears search field.
+ *  - Create/save/load from/to binary file of the List (Choose location/name).
+ *  - Selecting a record causes its data to be display in the 4 fields
+ *  - Sort array by name using separate bubble sort & swap methods (NO built-in)
+ *  - Clear all 4 field boxes when name field is double clicked
+ *  - Full error trapping & feedback messages. */
+/* Extend Requirements: Q6 stuff
+ *  - ValidName(): Checks for duplicates(.Exists())), get tbName, return bool.
+ *  - 
+ *  - 
+ *  - 
+ *  - FormWikiApp_Load(): Populate ComboBox from a simple text file */
+/* Form Design:
+ *  - ListView: Displays selectable records sorted by name (Columns name & category).
+ *  - 2 TextBox: For Name & search.
+ *  - Multi-line TextBox: For Definition.
+ *  - ComboBox(array of 6): For Category (Array,List,Tree,Graphs,Abstract,Hash).
+ *  - GroupBox(2 Radio btns): For Structure (Linear & Non-Linear).
+ *  - 1 Buttons: To add, edit, delete, search records, save & open files.
+ *  - Status strip to display error messages.*/
+/* IMPORTANT:
+ *  - At end of assessment doc is the Matrix used for this.
+ *  - Q6.6 could be problematic (check notes for solutions). */
 namespace AT2_WikiApp
 {
     public partial class FormWikiApp : Form
@@ -30,45 +71,162 @@ namespace AT2_WikiApp
         // btn to add a valid record to myRecordsArray & display it
         private void btnAdd_Click(object sender, EventArgs e)
         {
-
+            if (AddRecord())
+            {
+                ClearFields();
+                tbName.Focus();
+            }
+            DisplayRecords();
         }
 
         // btn to edit the selected record if new field values are valid & display it
         private void btnEdit_Click(object sender, EventArgs e)
         {
-
+            // If no record selected output message that a record must be selected
+            if (listViewRecords.SelectedIndices.Count > 0)
+            {
+                if (EditRecord(listViewRecords.SelectedIndices[0]))
+                {
+                    ClearFields();
+                    tbName.Focus();
+                    DisplayRecords();
+                }
+            }
+            else
+            {
+                StatusMsg("Error: Record was NOT editted \nReason: No record "
+                    + "was selected to edit", true);
+            }
         }
 
         // btn to delete the selected record if confirmed & update listview
         private void btnDelete_Click(object sender, EventArgs e)
         {
+            // If no record selected output message that a record must be selected
+            if (listViewRecords.SelectedIndices.Count > 0)
+            {
+                int selectedIndex = listViewRecords.SelectedIndices[0];
+                DialogResult result = MessageBox.Show(("Are sure you want to delete "
+                    + "the record called \"" + myRecordsArray[selectedIndex, 0]
+                    + "\" at index " + selectedIndex + "\n\nClick 'Yes' to delete the"
+                    + " record\nClick 'No' to cancel deletion"),
+                    "Confirm Deletion", MessageBoxButtons.YesNo);
+                if (result == DialogResult.Yes)
+                {
+                    DeleteRecord(selectedIndex);
+                    ClearFields();
+                    tbSearch.Focus();
+                    tbSearch.SelectAll();
+                    DisplayRecords();
+                }
+                else
+                {
+                    StatusMsg("Record deletion was cancelled", true);
+                }
+            }
+            else
+            {
+                StatusMsg("Error: Record was NOT deleted \nReason: No record "
+                    + "was selected to delete", true);
+            }
 
         }
 
-        // btn to save the records array & select location (definitions.dat)
+        // btn to save the list to a binary file choosing its location & name
         private void btnSave_Click(object sender, EventArgs e)
         {
+            // If no records in array ask want to save
+            if (nullIndex == 0)
+            {
+                DialogResult result = MessageBox.Show(("Currently no records are loaded."
+                    + "\nAre you sure you want to save."),
+                    "Begin Save", MessageBoxButtons.YesNo);
+                if (result == DialogResult.No)
+                {
+                    return;
+                }
+            }
 
+            saveFileDialogWiki.FileName = "AT2_Info";
+            if (saveFileDialogWiki.ShowDialog() == DialogResult.OK)
+            {
+                if (Path.GetExtension(saveFileDialogWiki.FileName).ToLower() != ".dat")
+                {
+                    saveFileDialogWiki.FileName += ".dat";
+                }
+                FileWriter(saveFileDialogWiki.FileName);
+                saveFileDialogWiki.InitialDirectory = Path.GetDirectoryName(
+                    saveFileDialogWiki.FileName);
+            }
+            DisplayRecords();
         }
 
-        // btn to load the records to the array by selecting a file (definitions.dat)
-        private void btnLoad_Click(object sender, EventArgs e)
+        // btn to load the records to the array by selecting a binary file
+        private void btnOpen_Click(object sender, EventArgs e)
         {
+            // If no records in array ask want to save
+            if (nullIndex > 0)
+            {
+                DialogResult result = MessageBox.Show(("Loading a records file will "
+                    + "overwrite current records."
+                    + "\nAre you sure you want to load records from file."),
+                    "Warning: Overwrite current records", MessageBoxButtons.YesNo);
+                if (result == DialogResult.No)
+                {
+                    return;
+                }
+            }
 
+            openFileDialogWiki.FileName = "AT2_Info";
+            if (openFileDialogWiki.ShowDialog() == DialogResult.OK)
+            {
+                FileReader(openFileDialogWiki.FileName);
+                openFileDialogWiki.InitialDirectory = Path.GetDirectoryName(
+                    openFileDialogWiki.FileName);
+            }
+            DisplayRecords();
         }
 
-        // Searches for a record's name that matches tbSearch & if found selects
-        //   record in listview displaying its details
+        // brn to search list for name that matches tbSearch & if found selects
+        //   record(highlight) in listview displaying its details
         // Focuses & clear tbSearch after search
-        private void tbSearch_KeyDown(object sender, KeyEventArgs e)
+        private void btnSearch_Click(object sender, EventArgs e)
         {
-
+            listViewRecords.SelectedIndices.Clear();
+            ClearFields();
+            if (!String.IsNullOrEmpty(tbSearch.Text))
+            {
+                int matchIndex = SearchRecords(tbSearch.Text);
+                if (matchIndex != -1)
+                {
+                    // Selects a record in listview which is detected by
+                    //   listRecords_SelectedIndexChanged() so the record is displayed
+                    listViewRecords.Items[matchIndex].Selected = true;
+                    StatusMsg("Match found for \"" + tbSearch.Text + "\" at index: "
+                        + matchIndex, true);
+                }
+                else
+                {
+                    StatusMsg("No match found for \"" + tbSearch.Text + "\"", true);
+                }
+            }
+            else
+            {
+                StatusMsg("ERROR Invalid Input: Value NOT searched"
+                    + "\nReason: Search field was empty", true);
+            }
+            tbSearch.Clear();
+            tbSearch.Focus();
+            tbSearch.SelectAll();
         }
 
         // If tbName is double clicked clear all 4 fields & focuses tbName
         private void tbName_DoubleClick(object sender, EventArgs e)
         {
-
+            ClearFields();
+            tbName.Focus();
+            tbName.SelectAll();
+            StatusMsg("All fields have been cleared", true);
         }
 
         // Detects if a record is selected/unselected in the listview 
@@ -291,6 +449,10 @@ namespace AT2_WikiApp
             return foundIndex;
         }
 
+        // @@@@@@@@@@@@@@@@___________NEEDS CODE____________@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+        // Checks for duplicates(.Exists())), get tbName, return bool.
+        private bool ValidName(string myName)
+
         // Sorts myRecordsArray by name (a to z)
         // Calls Swapper() to swaps record position with the next index
         private void BubbleSort()
@@ -435,7 +597,7 @@ namespace AT2_WikiApp
             tbDefinition.Clear();
         }
 
-        // Records data is written to selected file (definitions.dat)
+        // Records data is written to selected file (AT2_Info.dat)
         private void FileWriter(string filePath)
         {
             BinaryWriter bw;
@@ -473,7 +635,7 @@ namespace AT2_WikiApp
             bw.Close();
         }
 
-        // Reading from selected file (definitions.dat) 
+        // Reading from selected file (AT2_Info.dat) 
         private void FileReader(string filePath)
         {
             BinaryReader br;
@@ -522,7 +684,7 @@ namespace AT2_WikiApp
         }
 
         // On load sets InitialDirectory & status strip to display some tips
-        private void FormWiki_Load(object sender, EventArgs e)
+        private void FormWikiApp_Load(object sender, EventArgs e)
         {
             string initialPath = Path.Combine(Application.StartupPath, @"");
             saveFileDialogWiki.InitialDirectory = initialPath;
@@ -536,13 +698,13 @@ namespace AT2_WikiApp
                 "all 4 fields.", false);
         }
 
-        // On close asks to select location to save the records array (definitions.dat)
-        private void FormWiki_FormClosing(object sender, FormClosingEventArgs e)
+        // On close asks to choose location & name to save the list (AT2_Info.dat)
+        private void FormWikiApp_FormClosing(object sender, FormClosingEventArgs e)
         {
             // If any records in array ask to save
             if (nullIndex != 0)
             {
-                saveFileDialogWiki.FileName = "definitions";
+                saveFileDialogWiki.FileName = "AT2_Info";
                 if (saveFileDialogWiki.ShowDialog() == DialogResult.OK)
                 {
                     if (Path.GetExtension(saveFileDialogWiki.FileName).ToLower() != ".dat")

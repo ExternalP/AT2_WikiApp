@@ -39,7 +39,7 @@
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnEdit = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
-            this.btnLoad = new System.Windows.Forms.Button();
+            this.btnOpen = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.tbDefinition = new System.Windows.Forms.TextBox();
             this.tbStructure = new System.Windows.Forms.TextBox();
@@ -52,18 +52,20 @@
             this.openFileDialogWiki = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialogWiki = new System.Windows.Forms.SaveFileDialog();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.btnSearch = new System.Windows.Forms.Button();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(86, 135);
+            this.label5.Location = new System.Drawing.Point(86, 168);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(51, 13);
             this.label5.TabIndex = 33;
             this.label5.Text = "Definition";
             this.label5.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.toolTip1.SetToolTip(this.label5, "Data Structure Definition");
             // 
             // label4
             // 
@@ -74,6 +76,7 @@
             this.label4.TabIndex = 32;
             this.label4.Text = "Structure";
             this.label4.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.toolTip1.SetToolTip(this.label4, "Data Structure");
             // 
             // label3
             // 
@@ -84,6 +87,7 @@
             this.label3.TabIndex = 31;
             this.label3.Text = "Category";
             this.label3.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.toolTip1.SetToolTip(this.label3, "Data Structure Category");
             // 
             // label2
             // 
@@ -94,6 +98,7 @@
             this.label2.TabIndex = 30;
             this.label2.Text = "Name";
             this.label2.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.toolTip1.SetToolTip(this.label2, "Data Structure Name");
             // 
             // label1
             // 
@@ -106,16 +111,18 @@
             this.label1.TabIndex = 29;
             this.label1.Text = "Search";
             this.label1.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.toolTip1.SetToolTip(this.label1, "Search for record with same name as input.\r\nPress \'Enter\' in textbox to search.\r\n" +
+        "(Will ignore case)");
             // 
             // statusStrip1
             // 
             this.statusStrip1.AccessibleName = "";
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.statStripLabel});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 260);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 296);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.ShowItemToolTips = true;
-            this.statusStrip1.Size = new System.Drawing.Size(502, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(504, 22);
             this.statusStrip1.TabIndex = 28;
             // 
             // statStripLabel
@@ -123,7 +130,7 @@
             this.statStripLabel.AutoToolTip = true;
             this.statStripLabel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.statStripLabel.Name = "statStripLabel";
-            this.statStripLabel.Size = new System.Drawing.Size(785, 17);
+            this.statStripLabel.Size = new System.Drawing.Size(489, 17);
             this.statStripLabel.Spring = true;
             this.statStripLabel.Text = "Status: New form opened";
             this.statStripLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -137,6 +144,7 @@
             this.btnDelete.TabIndex = 27;
             this.btnDelete.Text = "Delete Record";
             this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // btnEdit
             // 
@@ -146,6 +154,7 @@
             this.btnEdit.TabIndex = 26;
             this.btnEdit.Text = "Edit Record";
             this.btnEdit.UseVisualStyleBackColor = true;
+            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
             // 
             // btnAdd
             // 
@@ -155,15 +164,18 @@
             this.btnAdd.TabIndex = 25;
             this.btnAdd.Text = "Add Record";
             this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
-            // btnLoad
+            // btnOpen
             // 
-            this.btnLoad.Location = new System.Drawing.Point(196, 35);
-            this.btnLoad.Name = "btnLoad";
-            this.btnLoad.Size = new System.Drawing.Size(85, 23);
-            this.btnLoad.TabIndex = 24;
-            this.btnLoad.Text = "Load from File";
-            this.btnLoad.UseVisualStyleBackColor = true;
+            this.btnOpen.Location = new System.Drawing.Point(196, 35);
+            this.btnOpen.Name = "btnOpen";
+            this.btnOpen.Size = new System.Drawing.Size(85, 23);
+            this.btnOpen.TabIndex = 24;
+            this.btnOpen.Text = "Open File";
+            this.btnOpen.UseMnemonic = false;
+            this.btnOpen.UseVisualStyleBackColor = true;
+            this.btnOpen.Click += new System.EventHandler(this.btnOpen_Click);
             // 
             // btnSave
             // 
@@ -173,15 +185,17 @@
             this.btnSave.TabIndex = 23;
             this.btnSave.Text = "Save to File";
             this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // tbDefinition
             // 
-            this.tbDefinition.Location = new System.Drawing.Point(23, 151);
+            this.tbDefinition.Location = new System.Drawing.Point(23, 184);
             this.tbDefinition.MaxLength = 600;
             this.tbDefinition.Multiline = true;
             this.tbDefinition.Name = "tbDefinition";
             this.tbDefinition.Size = new System.Drawing.Size(232, 96);
-            this.tbDefinition.TabIndex = 21;
+            this.tbDefinition.TabIndex = 4;
+            this.toolTip1.SetToolTip(this.tbDefinition, "Definition field\r\n(Max Characters: 600)");
             // 
             // tbStructure
             // 
@@ -189,7 +203,8 @@
             this.tbStructure.MaxLength = 50;
             this.tbStructure.Name = "tbStructure";
             this.tbStructure.Size = new System.Drawing.Size(121, 20);
-            this.tbStructure.TabIndex = 20;
+            this.tbStructure.TabIndex = 3;
+            this.toolTip1.SetToolTip(this.tbStructure, "Structure field\r\n(Max Characters: 50)");
             // 
             // tbCategory
             // 
@@ -197,7 +212,8 @@
             this.tbCategory.MaxLength = 50;
             this.tbCategory.Name = "tbCategory";
             this.tbCategory.Size = new System.Drawing.Size(121, 20);
-            this.tbCategory.TabIndex = 19;
+            this.tbCategory.TabIndex = 2;
+            this.toolTip1.SetToolTip(this.tbCategory, "Category field\r\n(Max Characters: 50)");
             // 
             // tbName
             // 
@@ -205,7 +221,9 @@
             this.tbName.MaxLength = 50;
             this.tbName.Name = "tbName";
             this.tbName.Size = new System.Drawing.Size(121, 20);
-            this.tbName.TabIndex = 18;
+            this.tbName.TabIndex = 1;
+            this.toolTip1.SetToolTip(this.tbName, "Double click here to clear all fields\r\n(Max Characters: 50)");
+            this.tbName.DoubleClick += new System.EventHandler(this.tbName_DoubleClick);
             // 
             // tbSearch
             // 
@@ -215,6 +233,7 @@
             this.tbSearch.Name = "tbSearch";
             this.tbSearch.Size = new System.Drawing.Size(121, 20);
             this.tbSearch.TabIndex = 17;
+            this.toolTip1.SetToolTip(this.tbSearch, "Search for record with same name as input\r\nPress \'Enter\' to search");
             // 
             // listViewRecords
             // 
@@ -232,6 +251,7 @@
             this.listViewRecords.TabIndex = 22;
             this.listViewRecords.UseCompatibleStateImageBehavior = false;
             this.listViewRecords.View = System.Windows.Forms.View.Details;
+            this.listViewRecords.SelectedIndexChanged += new System.EventHandler(this.listRecords_SelectedIndexChanged);
             // 
             // columnName
             // 
@@ -246,22 +266,35 @@
             // openFileDialogWiki
             // 
             this.openFileDialogWiki.DefaultExt = "dat";
-            this.openFileDialogWiki.FileName = "definitions";
+            this.openFileDialogWiki.FileName = "AT2_Info";
             this.openFileDialogWiki.Filter = "Binary files (*.dat)|*.dat";
             this.openFileDialogWiki.Title = "Load Wiki Records";
             // 
             // saveFileDialogWiki
             // 
             this.saveFileDialogWiki.DefaultExt = "dat";
-            this.saveFileDialogWiki.FileName = "definitions";
+            this.saveFileDialogWiki.FileName = "AT2_Info";
             this.saveFileDialogWiki.Filter = "Binary files (*.dat)|*.dat";
             this.saveFileDialogWiki.Title = "Save Wiki Records";
+            // 
+            // btnSearch
+            // 
+            this.btnSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSearch.Location = new System.Drawing.Point(191, 151);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(90, 23);
+            this.btnSearch.TabIndex = 34;
+            this.btnSearch.Text = "Search Record";
+            this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
             // FormWikiApp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(502, 282);
+            this.AutoSize = true;
+            this.ClientSize = new System.Drawing.Size(504, 318);
+            this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -271,7 +304,7 @@
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.btnEdit);
             this.Controls.Add(this.btnAdd);
-            this.Controls.Add(this.btnLoad);
+            this.Controls.Add(this.btnOpen);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.tbDefinition);
             this.Controls.Add(this.tbStructure);
@@ -280,7 +313,9 @@
             this.Controls.Add(this.tbSearch);
             this.Controls.Add(this.listViewRecords);
             this.Name = "FormWikiApp";
-            this.Text = "FormWikiApp";
+            this.Text = "Wiki Application";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormWikiApp_FormClosing);
+            this.Load += new System.EventHandler(this.FormWikiApp_Load);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -300,7 +335,7 @@
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Button btnEdit;
         private System.Windows.Forms.Button btnAdd;
-        private System.Windows.Forms.Button btnLoad;
+        private System.Windows.Forms.Button btnOpen;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.TextBox tbDefinition;
         private System.Windows.Forms.TextBox tbStructure;
@@ -313,6 +348,7 @@
         private System.Windows.Forms.OpenFileDialog openFileDialogWiki;
         private System.Windows.Forms.SaveFileDialog saveFileDialogWiki;
         private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.Button btnSearch;
     }
 }
 
