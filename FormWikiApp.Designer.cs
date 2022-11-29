@@ -53,13 +53,17 @@
             this.saveFileDialogWiki = new System.Windows.Forms.SaveFileDialog();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.btnSearch = new System.Windows.Forms.Button();
+            this.grpStructure = new System.Windows.Forms.GroupBox();
+            this.radioLinear = new System.Windows.Forms.RadioButton();
+            this.radioNonLinear = new System.Windows.Forms.RadioButton();
             this.statusStrip1.SuspendLayout();
+            this.grpStructure.SuspendLayout();
             this.SuspendLayout();
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(86, 168);
+            this.label5.Location = new System.Drawing.Point(44, 240);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(51, 13);
             this.label5.TabIndex = 33;
@@ -119,7 +123,7 @@
             this.statusStrip1.AccessibleName = "";
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.statStripLabel});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 296);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 385);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.ShowItemToolTips = true;
             this.statusStrip1.Size = new System.Drawing.Size(504, 22);
@@ -189,7 +193,7 @@
             // 
             // tbDefinition
             // 
-            this.tbDefinition.Location = new System.Drawing.Point(23, 184);
+            this.tbDefinition.Location = new System.Drawing.Point(23, 256);
             this.tbDefinition.MaxLength = 600;
             this.tbDefinition.Multiline = true;
             this.tbDefinition.Name = "tbDefinition";
@@ -288,12 +292,50 @@
             this.btnSearch.UseVisualStyleBackColor = true;
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
+            // grpStructure
+            // 
+            this.grpStructure.Controls.Add(this.radioLinear);
+            this.grpStructure.Controls.Add(this.radioNonLinear);
+            this.grpStructure.Location = new System.Drawing.Point(23, 169);
+            this.grpStructure.Name = "grpStructure";
+            this.grpStructure.Size = new System.Drawing.Size(90, 68);
+            this.grpStructure.TabIndex = 35;
+            this.grpStructure.TabStop = false;
+            this.grpStructure.Text = "Queue Priority";
+            this.toolTip1.SetToolTip(this.grpStructure, "Select which queue to enter\r\n(A queue must be selected to add an item)");
+            // 
+            // radioLinear
+            // 
+            this.radioLinear.AutoSize = true;
+            this.radioLinear.Location = new System.Drawing.Point(6, 19);
+            this.radioLinear.Name = "radioLinear";
+            this.radioLinear.Size = new System.Drawing.Size(62, 17);
+            this.radioLinear.TabIndex = 0;
+            this.radioLinear.TabStop = true;
+            this.radioLinear.Tag = "";
+            this.radioLinear.Text = "Regular";
+            this.toolTip1.SetToolTip(this.radioLinear, "Regular Queue: Default cost");
+            this.radioLinear.UseVisualStyleBackColor = true;
+            // 
+            // radioNonLinear
+            // 
+            this.radioNonLinear.AutoSize = true;
+            this.radioNonLinear.Location = new System.Drawing.Point(6, 42);
+            this.radioNonLinear.Name = "radioNonLinear";
+            this.radioNonLinear.Size = new System.Drawing.Size(62, 17);
+            this.radioNonLinear.TabIndex = 1;
+            this.radioNonLinear.TabStop = true;
+            this.radioNonLinear.Text = "Express";
+            this.toolTip1.SetToolTip(this.radioNonLinear, "Express Queue: Costs +15% extra");
+            this.radioNonLinear.UseVisualStyleBackColor = true;
+            // 
             // FormWikiApp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(504, 318);
+            this.ClientSize = new System.Drawing.Size(504, 407);
+            this.Controls.Add(this.grpStructure);
             this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
@@ -318,6 +360,8 @@
             this.Load += new System.EventHandler(this.FormWikiApp_Load);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
+            this.grpStructure.ResumeLayout(false);
+            this.grpStructure.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -349,6 +393,9 @@
         private System.Windows.Forms.SaveFileDialog saveFileDialogWiki;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Button btnSearch;
+        private System.Windows.Forms.GroupBox grpStructure;
+        private System.Windows.Forms.RadioButton radioLinear;
+        private System.Windows.Forms.RadioButton radioNonLinear;
     }
 }
 
