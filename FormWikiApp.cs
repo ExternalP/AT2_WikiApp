@@ -27,29 +27,31 @@ using System.Windows.Forms;
  *  - List<Information> Wiki: Global List of data structures info.
  *  - Can add/edit/delete records
  *  - Prevent duplicates & filter out numeric/special character inputs.
- *  - Binary search records by Name which selects it & clears search field.
+ *  - (USE built-in) Binary search by Name which selects it & clears search field.
  *  - Create/save/load from/to binary file of the List (Choose location/name).
  *  - Selecting a record causes its data to be display in the 4 fields
- *  - Sort array by name using separate bubble sort & swap methods (NO built-in)
  *  - Clear all 4 field boxes when name field is double clicked
  *  - Full error trapping & feedback messages. */
 /* Extend Requirements: Q6 stuff
+ *  - DisplayList(): Single method sorts & displays all list's name & category.
  *  - ValidName(): Checks for duplicates(.Exists())), get tbName, return bool.
- *  - 
- *  - 
- *  - 
- *  - FormWikiApp_Load(): Populate ComboBox from a simple text file */
+ *  - GetStructure(): Returns string from select radio btn (Linear/Non-Linear).
+ *  - SetStructure(): Send int index to highlight the correct radio btn.
+ *  - FormWikiApp_Load(): Populate ComboBox from a simple text file
+ *  - (Maybe)btnEdit_Click(): Might need to auto save after btn pressed. */
 /* Form Design:
  *  - ListView: Displays selectable records sorted by name (Columns name & category).
  *  - 2 TextBox: For Name & search.
  *  - Multi-line TextBox: For Definition.
  *  - ComboBox(array of 6): For Category (Array,List,Tree,Graphs,Abstract,Hash).
  *  - GroupBox(2 Radio btns): For Structure (Linear & Non-Linear).
- *  - 1 Buttons: To add, edit, delete, search records, save & open files.
+ *  - 6 Buttons: To add, edit, delete, search records, save & open files.
  *  - Status strip to display error messages.*/
 /* IMPORTANT:
  *  - At end of assessment doc is the Matrix used for this.
- *  - Q6.6 could be problematic (check notes for solutions). */
+ *  - Q6.6 could be problematic (check notes for solutions).
+ *  - NO sort/swap methods use built-in
+ *  - Might need to auto save after Edit btn pressed. */
 namespace AT2_WikiApp
 {
     public partial class FormWikiApp : Form
@@ -76,7 +78,7 @@ namespace AT2_WikiApp
                 ClearFields();
                 tbName.Focus();
             }
-            DisplayRecords();
+            DisplayList();
         }
 
         // btn to edit the selected record if new field values are valid & display it
@@ -89,7 +91,7 @@ namespace AT2_WikiApp
                 {
                     ClearFields();
                     tbName.Focus();
-                    DisplayRecords();
+                    DisplayList();
                 }
             }
             else
@@ -117,7 +119,7 @@ namespace AT2_WikiApp
                     ClearFields();
                     tbSearch.Focus();
                     tbSearch.SelectAll();
-                    DisplayRecords();
+                    DisplayList();
                 }
                 else
                 {
@@ -158,7 +160,7 @@ namespace AT2_WikiApp
                 saveFileDialogWiki.InitialDirectory = Path.GetDirectoryName(
                     saveFileDialogWiki.FileName);
             }
-            DisplayRecords();
+            DisplayList();
         }
 
         // btn to load the records to the array by selecting a binary file
@@ -184,7 +186,7 @@ namespace AT2_WikiApp
                 openFileDialogWiki.InitialDirectory = Path.GetDirectoryName(
                     openFileDialogWiki.FileName);
             }
-            DisplayRecords();
+            DisplayList();
         }
 
         // brn to search list for name that matches tbSearch & if found selects
@@ -237,7 +239,7 @@ namespace AT2_WikiApp
         }
 
         // Displays records in listViewRecords after sort
-        private void DisplayRecords()
+        private void DisplayList()
         {
             // Clear the list
             listViewRecords.Items.Clear();
@@ -452,69 +454,25 @@ namespace AT2_WikiApp
         // @@@@@@@@@@@@@@@@___________NEEDS CODE____________@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
         // Checks for duplicates(.Exists())), get tbName, return bool.
         private bool ValidName(string myName)
-
-        // Sorts myRecordsArray by name (a to z)
-        // Calls Swapper() to swaps record position with the next index
-        private void BubbleSort()
         {
-            bool flag = false;
-            int duplicateIndex = -1;
-            do
-            {
-                // Loop ends if flag NOT changed to true before end of loop
-                flag = false;
-                for (int i = 0; i < nullIndex - 1; i++)
-                {
-                    if (String.IsNullOrEmpty(myRecordsArray[(i + 1), 0]))
-                    {
-                        break;
-                    }
-                    /* Sorts a to z, should trigger until nothing left to swap
-                     * CompareTo output: "abc".CompareTo("bcd")=-1, bcd.abc=1, 
-                     *   abc.abc=0, ABC.abc=1, acc.abc=1 
-                     * Records with identical names are placed together (CANT happen i think) */
-                    else if (myRecordsArray[i, 0].CompareTo(myRecordsArray[(i + 1), 0]) > 0)
-                    {
-                        Swapper(i, (i + 1));
-                        // Set 'true' to keep looping
-                        flag = true;
-                    }
-                    else if (String.Compare(myRecordsArray[i, 0], myRecordsArray[(i + 1), 0],
-                        StringComparison.OrdinalIgnoreCase) == 0)
-                    {
-                        duplicateIndex = i;
-                    }
-                }
-            } while (flag == true);
-            if (duplicateIndex != -1)
-            {
-                appendErrMsg += "ERROR: The name \"" + myRecordsArray[duplicateIndex, 0]
-                            + "\" is both index: " + duplicateIndex
-                            + " and " + (duplicateIndex + 1 + "\n");
-            }
+            //  Use the built in List<T> method "Exists"
+
         }
 
-        // Swaps array's index 'i' with 'i+1' to swap record's position with the next
-        // Used by BubbleSort() to order records 
-        private void Swapper(int a, int b)
+        // @@@@@@@@@@@@@@@@___________NEEDS CODE____________@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+        // Returns string from select radio btn (Linear/Non-Linear).
+        private string GetStructure()
         {
-            string temp;
-            // Swapping names
-            temp = myRecordsArray[a, 0];
-            myRecordsArray[a, 0] = myRecordsArray[b, 0];
-            myRecordsArray[b, 0] = temp;
-            // Swapping categories
-            temp = myRecordsArray[a, 1];
-            myRecordsArray[a, 1] = myRecordsArray[b, 1];
-            myRecordsArray[b, 1] = temp;
-            // Swapping structures
-            temp = myRecordsArray[a, 2];
-            myRecordsArray[a, 2] = myRecordsArray[b, 2];
-            myRecordsArray[b, 2] = temp;
-            // Swapping definition
-            temp = myRecordsArray[a, 3];
-            myRecordsArray[a, 3] = myRecordsArray[b, 3];
-            myRecordsArray[b, 3] = temp;
+            
+
+        }
+
+        // @@@@@@@@@@@@@@@@___________NEEDS CODE____________@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+        // Send int index to highlight/select the correct radio btn.
+        private int SetStructure(string myStructure)
+        {
+            // This is Q6.6 (check "AT2 - Q6-6 IMPORTANT NOTES.cs" for solution).
+
         }
 
         // Displays the status message after formating msg & strip
