@@ -234,6 +234,28 @@ namespace AT2_WikiApp
             StatusMsg("All fields have been cleared", true);
         }
 
+        // On keypress in tbName prevents special character & numeric inputs
+        private void tbName_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            NoSpecialChar(ref e);
+        }
+
+        // On keypress in tbDefinition prevents special character & numeric inputs
+        private void tbDefinition_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            NoSpecialChar(ref e);
+        }
+
+        // Prevents special character & numeric inputs
+        private void NoSpecialChar(ref KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsLetter(e.KeyChar)
+                && e.KeyChar != '.' && !char.IsSeparator(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
         // Detects if a record is selected/unselected in the listview 
         //   & calls SelectRecords() to display its details
         private void listRecords_SelectedIndexChanged(object sender, EventArgs e)
@@ -275,31 +297,31 @@ namespace AT2_WikiApp
                 statMsg = "";
                 // hasData = false if invalid field (stat-msg but still add record)
                 // hasName: if false DONT add record
-                bool hasName = true, hasData = true;
-                int duplicateFound;
+                bool hasName = true, hasData = true, validName = false;
                 string missingField = "";
 
                 if (String.IsNullOrEmpty(tbName.Text))
                 {
                     hasName = false;
                 }
-                if (String.IsNullOrEmpty(tbCategory.Text))
+                if (String.IsNullOrEmpty(cbCategory.Text))
                 {
                     hasData = false;
                     missingField = "Category, ";
-                }
-                if (String.IsNullOrEmpty(tbStructure.Text))
-                {
-                    hasData = false;
-                    missingField += "Structure, ";
                 }
                 if (String.IsNullOrEmpty(tbDefinition.Text))
                 {
                     hasData = false;
                     missingField += "Definition, ";
                 }
+                string newStructure = GetStructure();
+                if (String.IsNullOrEmpty(newStructure))
+                {
+                    hasData = false;
+                    missingField += "Structure, ";
+                }
 
-                duplicateFound = SearchRecords(tbName.Text);
+                validName = ValidName(tbName.Text);
                 if (hasName == false)
                 {
                     tbName.Focus();
@@ -307,18 +329,18 @@ namespace AT2_WikiApp
                     statMsg += "ERROR Invalid Input: Record was NOT added"
                         + "\nReason: Name field CANNOT be empty";
                 }
-                else if (duplicateFound != -1)
+                else if (validName == false)
                 {
                     tbName.Focus();
                     tbName.SelectAll();
                     statMsg += "ERROR Invalid Input: Record was NOT added"
                         + "\nReason: Duplicate names are NOT ALLOWED "
                         + "\nA record with the name: \"" + tbName.Text
-                        + "\" already exists at index " + duplicateFound;
+                        + "\" already exists at index " + validName;
                 }
 
                 // Add record to myRecordsArray[] if valid
-                if (hasName == true && duplicateFound == -1)
+                if (hasName == true && validName == true)
                 {
                     myRecordsArray[nullIndex, 0] = tbName.Text;
                     myRecordsArray[nullIndex, 1] = tbCategory.Text;
@@ -459,15 +481,28 @@ namespace AT2_WikiApp
         private bool ValidName(string myName)
         {
             //  Use the built in List<T> method "Exists"
+            bool isValid = false;
+            Information myInfo = new Information();
+            myInfo.gsDsName = myName;
+            Wiki.Exists(e => e.CompareTo(myInfo);
+            Wiki.Exists(List);
 
+            return isValid;
         }
 
         // @@@@@@@@@@@@@@@@___________NEEDS CODE____________@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
         // Returns string from select radio btn (Linear/Non-Linear).
         private string GetStructure()
         {
-            
-
+            string structure = null;
+            foreach (RadioButton r in grpStructure.Controls)
+            {
+                if (r.Checked)
+                {
+                    structure = r.Text;
+                }
+            }
+            return structure;
         }
 
         // @@@@@@@@@@@@@@@@___________NEEDS CODE____________@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -476,6 +511,7 @@ namespace AT2_WikiApp
         {
             // This is Q6.6 (check "AT2 - Q6-6 IMPORTANT NOTES.cs" for solution).
 
+            return -1;
         }
 
         // Displays the status message after formating msg & strip

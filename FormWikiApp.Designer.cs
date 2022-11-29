@@ -52,8 +52,8 @@
             this.grpStructure = new System.Windows.Forms.GroupBox();
             this.radioLinear = new System.Windows.Forms.RadioButton();
             this.radioNonLinear = new System.Windows.Forms.RadioButton();
-            this.btnSearch = new System.Windows.Forms.Button();
             this.cbCategory = new System.Windows.Forms.ComboBox();
+            this.btnSearch = new System.Windows.Forms.Button();
             this.statusStrip1.SuspendLayout();
             this.grpStructure.SuspendLayout();
             this.SuspendLayout();
@@ -187,6 +187,7 @@
             this.tbDefinition.Size = new System.Drawing.Size(246, 96);
             this.tbDefinition.TabIndex = 4;
             this.toolTip1.SetToolTip(this.tbDefinition, "Definition field\r\n(Max Characters: 600)");
+            this.tbDefinition.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbDefinition_KeyPress);
             // 
             // tbName
             // 
@@ -197,6 +198,7 @@
             this.tbName.TabIndex = 1;
             this.toolTip1.SetToolTip(this.tbName, "Double click here to clear all fields\r\n(Max Characters: 50)");
             this.tbName.DoubleClick += new System.EventHandler(this.tbName_DoubleClick);
+            this.tbName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbName_KeyPress);
             // 
             // tbSearch
             // 
@@ -289,17 +291,6 @@
             this.radioNonLinear.UseMnemonic = false;
             this.radioNonLinear.UseVisualStyleBackColor = true;
             // 
-            // btnSearch
-            // 
-            this.btnSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSearch.Location = new System.Drawing.Point(191, 154);
-            this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(90, 23);
-            this.btnSearch.TabIndex = 34;
-            this.btnSearch.Text = "Search Record";
-            this.btnSearch.UseVisualStyleBackColor = true;
-            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
-            // 
             // cbCategory
             // 
             this.cbCategory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -310,6 +301,17 @@
             this.cbCategory.Size = new System.Drawing.Size(121, 21);
             this.cbCategory.TabIndex = 3;
             this.toolTip1.SetToolTip(this.cbCategory, "Choose a category from the list.");
+            // 
+            // btnSearch
+            // 
+            this.btnSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSearch.Location = new System.Drawing.Point(191, 154);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(90, 23);
+            this.btnSearch.TabIndex = 34;
+            this.btnSearch.Text = "Search Record";
+            this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
             // FormWikiApp
             // 
