@@ -43,7 +43,7 @@
             this.tbDefinition = new System.Windows.Forms.TextBox();
             this.tbName = new System.Windows.Forms.TextBox();
             this.tbSearch = new System.Windows.Forms.TextBox();
-            this.listViewRecords = new System.Windows.Forms.ListView();
+            this.listViewInfo = new System.Windows.Forms.ListView();
             this.columnName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnCategory = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.openFileDialogWiki = new System.Windows.Forms.OpenFileDialog();
@@ -61,7 +61,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(44, 183);
+            this.label5.Location = new System.Drawing.Point(24, 174);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(51, 13);
             this.label5.TabIndex = 33;
@@ -72,7 +72,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 82);
+            this.label3.Location = new System.Drawing.Point(6, 77);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(49, 13);
             this.label3.TabIndex = 31;
@@ -83,7 +83,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(20, 56);
+            this.label2.Location = new System.Drawing.Point(20, 51);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(35, 13);
             this.label2.TabIndex = 30;
@@ -110,7 +110,7 @@
             this.statusStrip1.AccessibleName = "";
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.statStripLabel});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 385);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 291);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.ShowItemToolTips = true;
             this.statusStrip1.Size = new System.Drawing.Size(504, 22);
@@ -180,17 +180,17 @@
             // 
             // tbDefinition
             // 
-            this.tbDefinition.Location = new System.Drawing.Point(23, 199);
+            this.tbDefinition.Location = new System.Drawing.Point(23, 188);
             this.tbDefinition.MaxLength = 600;
             this.tbDefinition.Multiline = true;
             this.tbDefinition.Name = "tbDefinition";
-            this.tbDefinition.Size = new System.Drawing.Size(232, 96);
+            this.tbDefinition.Size = new System.Drawing.Size(246, 96);
             this.tbDefinition.TabIndex = 4;
             this.toolTip1.SetToolTip(this.tbDefinition, "Definition field\r\n(Max Characters: 600)");
             // 
             // tbName
             // 
-            this.tbName.Location = new System.Drawing.Point(58, 53);
+            this.tbName.Location = new System.Drawing.Point(58, 48);
             this.tbName.MaxLength = 50;
             this.tbName.Name = "tbName";
             this.tbName.Size = new System.Drawing.Size(121, 20);
@@ -208,23 +208,23 @@
             this.tbSearch.TabIndex = 17;
             this.toolTip1.SetToolTip(this.tbSearch, "Search for record with same name as input\r\nPress \'Enter\' to search");
             // 
-            // listViewRecords
+            // listViewInfo
             // 
-            this.listViewRecords.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.listViewInfo.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnName,
             this.columnCategory});
-            this.listViewRecords.FullRowSelect = true;
-            this.listViewRecords.GridLines = true;
-            this.listViewRecords.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-            this.listViewRecords.HideSelection = false;
-            this.listViewRecords.Location = new System.Drawing.Point(287, 9);
-            this.listViewRecords.MultiSelect = false;
-            this.listViewRecords.Name = "listViewRecords";
-            this.listViewRecords.Size = new System.Drawing.Size(205, 241);
-            this.listViewRecords.TabIndex = 22;
-            this.listViewRecords.UseCompatibleStateImageBehavior = false;
-            this.listViewRecords.View = System.Windows.Forms.View.Details;
-            this.listViewRecords.SelectedIndexChanged += new System.EventHandler(this.listRecords_SelectedIndexChanged);
+            this.listViewInfo.FullRowSelect = true;
+            this.listViewInfo.GridLines = true;
+            this.listViewInfo.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this.listViewInfo.HideSelection = false;
+            this.listViewInfo.Location = new System.Drawing.Point(287, 9);
+            this.listViewInfo.MultiSelect = false;
+            this.listViewInfo.Name = "listViewInfo";
+            this.listViewInfo.Size = new System.Drawing.Size(205, 275);
+            this.listViewInfo.TabIndex = 22;
+            this.listViewInfo.UseCompatibleStateImageBehavior = false;
+            this.listViewInfo.View = System.Windows.Forms.View.Details;
+            this.listViewInfo.SelectedIndexChanged += new System.EventHandler(this.listRecords_SelectedIndexChanged);
             // 
             // columnName
             // 
@@ -254,7 +254,7 @@
             // 
             this.grpStructure.Controls.Add(this.radioLinear);
             this.grpStructure.Controls.Add(this.radioNonLinear);
-            this.grpStructure.Location = new System.Drawing.Point(58, 109);
+            this.grpStructure.Location = new System.Drawing.Point(58, 104);
             this.grpStructure.Name = "grpStructure";
             this.grpStructure.Size = new System.Drawing.Size(108, 68);
             this.grpStructure.TabIndex = 35;
@@ -304,7 +304,7 @@
             // 
             this.cbCategory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbCategory.FormattingEnabled = true;
-            this.cbCategory.Location = new System.Drawing.Point(58, 79);
+            this.cbCategory.Location = new System.Drawing.Point(58, 74);
             this.cbCategory.MaxDropDownItems = 6;
             this.cbCategory.Name = "cbCategory";
             this.cbCategory.Size = new System.Drawing.Size(121, 21);
@@ -316,7 +316,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(504, 407);
+            this.ClientSize = new System.Drawing.Size(504, 313);
             this.Controls.Add(this.cbCategory);
             this.Controls.Add(this.grpStructure);
             this.Controls.Add(this.btnSearch);
@@ -333,7 +333,7 @@
             this.Controls.Add(this.tbDefinition);
             this.Controls.Add(this.tbName);
             this.Controls.Add(this.tbSearch);
-            this.Controls.Add(this.listViewRecords);
+            this.Controls.Add(this.listViewInfo);
             this.Name = "FormWikiApp";
             this.Text = "Wiki Application";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormWikiApp_FormClosing);
@@ -363,7 +363,7 @@
         private System.Windows.Forms.TextBox tbDefinition;
         private System.Windows.Forms.TextBox tbName;
         private System.Windows.Forms.TextBox tbSearch;
-        private System.Windows.Forms.ListView listViewRecords;
+        private System.Windows.Forms.ListView listViewInfo;
         private System.Windows.Forms.ColumnHeader columnName;
         private System.Windows.Forms.ColumnHeader columnCategory;
         private System.Windows.Forms.OpenFileDialog openFileDialogWiki;

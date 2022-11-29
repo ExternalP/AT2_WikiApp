@@ -59,6 +59,8 @@ namespace AT2_WikiApp
     {
         // When using maxRecords for final index remember to -1 from it
         private static int maxRecords = 12;
+        // Global List of data structures info.
+        List<Information> Wiki = new List<Information>();
         // Initialise the 2D array
         string[,] myRecordsArray = new string[maxRecords, 4];
         // Index of first null in array
@@ -86,9 +88,9 @@ namespace AT2_WikiApp
         private void btnEdit_Click(object sender, EventArgs e)
         {
             // If no record selected output message that a record must be selected
-            if (listViewRecords.SelectedIndices.Count > 0)
+            if (listViewInfo.SelectedIndices.Count > 0)
             {
-                if (EditRecord(listViewRecords.SelectedIndices[0]))
+                if (EditRecord(listViewInfo.SelectedIndices[0]))
                 {
                     ClearFields();
                     tbName.Focus();
@@ -106,9 +108,9 @@ namespace AT2_WikiApp
         private void btnDelete_Click(object sender, EventArgs e)
         {
             // If no record selected output message that a record must be selected
-            if (listViewRecords.SelectedIndices.Count > 0)
+            if (listViewInfo.SelectedIndices.Count > 0)
             {
-                int selectedIndex = listViewRecords.SelectedIndices[0];
+                int selectedIndex = listViewInfo.SelectedIndices[0];
                 DialogResult result = MessageBox.Show(("Are sure you want to delete "
                     + "the record called \"" + myRecordsArray[selectedIndex, 0]
                     + "\" at index " + selectedIndex + "\n\nClick 'Yes' to delete the"
@@ -195,7 +197,7 @@ namespace AT2_WikiApp
         // Focuses & clear tbSearch after search
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            listViewRecords.SelectedIndices.Clear();
+            listViewInfo.SelectedIndices.Clear();
             ClearFields();
             if (!String.IsNullOrEmpty(tbSearch.Text))
             {
@@ -204,7 +206,7 @@ namespace AT2_WikiApp
                 {
                     // Selects a record in listview which is detected by
                     //   listRecords_SelectedIndexChanged() so the record is displayed
-                    listViewRecords.Items[matchIndex].Selected = true;
+                    listViewInfo.Items[matchIndex].Selected = true;
                     StatusMsg("Match found for \"" + tbSearch.Text + "\" at index: "
                         + matchIndex, true);
                 }
@@ -243,7 +245,7 @@ namespace AT2_WikiApp
         private void DisplayList()
         {
             // Clear the list
-            listViewRecords.Items.Clear();
+            listViewInfo.Items.Clear();
             BubbleSort();
             for (int i = 0; i < nullIndex; i++)
             {
@@ -256,7 +258,7 @@ namespace AT2_WikiApp
                 }
                 ListViewItem listView1 = new ListViewItem(myRecordsArray[i, 0]);
                 listView1.SubItems.Add(myRecordsArray[i, 1]);
-                listViewRecords.Items.Add(listView1);
+                listViewInfo.Items.Add(listView1);
             }
         }
 
@@ -529,17 +531,17 @@ namespace AT2_WikiApp
         private void SelectRecord()
         {
             // Unbolds all items first so only selected item is bold
-            Font notSelectedFont = new Font(listViewRecords.Font, FontStyle.Regular);
+            Font notSelectedFont = new Font(listViewInfo.Font, FontStyle.Regular);
             for (int i = 0; i < nullIndex; i++)
             {
-                listViewRecords.Items[i].Font = notSelectedFont;
+                listViewInfo.Items[i].Font = notSelectedFont;
             }
             // If it detects an item is selected make its name bold
-            if (listViewRecords.SelectedIndices.Count != 0)
+            if (listViewInfo.SelectedIndices.Count != 0)
             {
-                int selectedIndex = listViewRecords.SelectedIndices[0];
-                listViewRecords.Items[selectedIndex].Font =
-                    new Font(listViewRecords.Font, FontStyle.Bold);
+                int selectedIndex = listViewInfo.SelectedIndices[0];
+                listViewInfo.Items[selectedIndex].Font =
+                    new Font(listViewInfo.Font, FontStyle.Bold);
                 tbName.Text = myRecordsArray[selectedIndex, 0];
                 tbCategory.Text = myRecordsArray[selectedIndex, 1];
                 tbStructure.Text = myRecordsArray[selectedIndex, 2];
@@ -673,7 +675,8 @@ namespace AT2_WikiApp
                 { "Array", "List", "Tree", "Graphs", "Abstract", "Hash" };
                 File.WriteAllLines("categories.txt", catArray);
             }
-            InitialiseCat(File.ReadAllLines("categories.txt"));
+            catArray = File.ReadAllLines("categories.txt");
+            InitialiseCat(catArray);
         }
 
         // On close asks to choose location & name to save the list (AT2_Info.dat)
