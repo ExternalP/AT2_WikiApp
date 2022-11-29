@@ -37,7 +37,8 @@ using System.Windows.Forms;
  *  - ValidName(): Checks for duplicates(.Exists())), get tbName, return bool.
  *  - GetStructure(): Returns string from select radio btn (Linear/Non-Linear).
  *  - SetStructure(): Send int index to highlight the correct radio btn.
- *  - FormWikiApp_Load(): Populate ComboBox from a simple text file
+ *  - InitialiseCat(): Populate ComboBox from a simple text file on load.
+ *  - FormWikiApp_Load(): call InitialiseCat() on load.
  *  - (Maybe)btnEdit_Click(): Might need to auto save after btn pressed. */
 /* Form Design:
  *  - ListView: Displays selectable records sorted by name (Columns name & category).
@@ -555,6 +556,15 @@ namespace AT2_WikiApp
             tbDefinition.Clear();
         }
 
+        // Populate ComboBox from a simple text file on load.
+        private void InitialiseCat(string[] catArray)
+        {
+            foreach (string cat in catArray)
+            {
+                cbCategory.Items.Add(cat);
+            }
+        }
+
         // Records data is written to selected file (AT2_Info.dat)
         private void FileWriter(string filePath)
         {
@@ -654,6 +664,16 @@ namespace AT2_WikiApp
                 "         4. Clicking on a record will select it & show its details " +
                 "in the fields.\n         5. Double click the 'Name' field to clear " +
                 "all 4 fields.", false);
+            string[] catArray;
+            // Create file if doesn't exist
+            if (!File.Exists(@".\categories.txt"))
+            {
+                File.Create(@".\categories.txt").Close();
+                catArray = new string[]
+                { "Array", "List", "Tree", "Graphs", "Abstract", "Hash" };
+                File.WriteAllLines("categories.txt", catArray);
+            }
+            InitialiseCat(File.ReadAllLines("categories.txt"));
         }
 
         // On close asks to choose location & name to save the list (AT2_Info.dat)
