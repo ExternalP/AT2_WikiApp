@@ -51,8 +51,7 @@ using System.Windows.Forms;
 /* IMPORTANT:
  *  - At end of assessment doc is the Matrix used for this.
  *  - Q6.6 could be problematic (check notes for solutions).
- *  - NO sort/swap methods use built-in
- *  - Might need to auto save after Edit btn pressed. */
+ *  - NO sort/swap methods use built-in */
 namespace AT2_WikiApp
 {
     public partial class FormWikiApp : Form
@@ -67,7 +66,7 @@ namespace AT2_WikiApp
             InitializeComponent();
         }
 
-        // btn to add a valid record to myRecordsArray & display it
+        // btn to add a valid record to Wiki & display it
         private void btnAdd_Click(object sender, EventArgs e)
         {
             if (AddRecord())
@@ -132,7 +131,7 @@ namespace AT2_WikiApp
         // btn to save the list to a binary file choosing its location & name
         private void btnSave_Click(object sender, EventArgs e)
         {
-            // If no records in array ask want to save
+            // If no records in list ask want to save
             if (Wiki.Count == 0)
             {
                 DialogResult result = MessageBox.Show(("Currently no records are loaded."
@@ -158,10 +157,10 @@ namespace AT2_WikiApp
             DisplayList();
         }
 
-        // btn to load the records to the array by selecting a binary file
+        // btn to load the records to the list by selecting a binary file
         private void btnOpen_Click(object sender, EventArgs e)
         {
-            // If no records in array ask want to save
+            // If no records in list ask want to save
             if (Wiki.Count > 0)
             {
                 DialogResult result = MessageBox.Show(("Loading a records file will "
@@ -272,7 +271,7 @@ namespace AT2_WikiApp
             }
         }
 
-        // Add new record to myRecordsArray if valid
+        // Add new record to Wiki if valid
         private bool AddRecord()
         {
             bool wasAdded = false;
@@ -664,7 +663,7 @@ namespace AT2_WikiApp
             br.Close();
         }
 
-        // On load sets InitialDirectory & status strip to display some tips
+        // On load calls InitialiseCat() sets InitialDirectory & status strip to display some tips
         private void FormWikiApp_Load(object sender, EventArgs e)
         {
             string initialPath = Path.Combine(Application.StartupPath, @"");
@@ -684,7 +683,7 @@ namespace AT2_WikiApp
         // On close asks to choose location & name to save the list (AT2_Info.dat)
         private void FormWikiApp_FormClosing(object sender, FormClosingEventArgs e)
         {
-            // If any records in array ask to save
+            // If any records in list ask to save
             if (Wiki.Count > 0)
             {
                 saveFileDialogWiki.FileName = "AT2_Info";

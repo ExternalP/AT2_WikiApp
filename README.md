@@ -28,8 +28,8 @@
  *  - ValidName(): Checks for duplicates(.Exists())), get tbName, return bool.
  *  - GetStructure(): Returns string from select radio btn (Linear/Non-Linear).
  *  - SetStructure(): Send int index to highlight the correct radio btn.
- *  - FormWikiApp_Load(): Populate ComboBox from a simple text file
- *  - (Maybe)btnEdit_Click(): Might need to auto save after btn pressed. */
+ *  - InitialiseCat(): Populate ComboBox from a simple text file on load.
+ *  - FormWikiApp_Load(): call InitialiseCat() on load. */
 /* Form Design:
  *  - ListView: Displays selectable records sorted by name (Columns name & category).
  *  - 2 TextBox: For Name & search.
@@ -41,5 +41,4 @@
 /* IMPORTANT:
  *  - At end of assessment doc is the Matrix used for this.
  *  - Q6.6 could be problematic (check notes for solutions).
- *  - NO sort/swap methods use built-in
- *  - Might need to auto save after Edit btn pressed. */
+ *  - NO sort/swap methods use built-in */
