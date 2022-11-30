@@ -355,7 +355,7 @@ namespace AT2_WikiApp
             bool wasEditted = false;
             string statMsg = "", nameChange = "";
             // if false DONT edit record
-            bool hasData = true, validName = false;
+            bool hasData = true, noDuplicate = true;
             string missingField = "";
 
             if (String.IsNullOrEmpty(tbName.Text))
@@ -368,7 +368,7 @@ namespace AT2_WikiApp
             {
                 // tbName_KeyPress prevents special & numeric inputs
                 // No duplicates if ValidName == true
-                validName = ValidName(tbName.Text);
+                noDuplicate = ValidName(tbName.Text);
                 nameChange = "\nname was changed from \"" + Wiki[editIndex].gsDsName 
                     + "\" to \"" + tbName.Text + "\"";
             }
@@ -398,7 +398,7 @@ namespace AT2_WikiApp
                     + "\nReason: The following field(s) are empty/invalid: "
                     + missingField.Remove(missingField.Length - 2);
             }
-            else if (validName == false)
+            else if (noDuplicate == false)
             {
                 tbName.Focus();
                 tbName.SelectAll();
@@ -409,7 +409,7 @@ namespace AT2_WikiApp
             }
 
             // Edit selected record using inputs, if valid
-            if (hasData == true && validName == true)
+            if (hasData == true && noDuplicate == true)
             {
                 Wiki[editIndex].gsDsName = tbName.Text;
                 Wiki[editIndex].gsDsCategory = cbCategory.Text;
