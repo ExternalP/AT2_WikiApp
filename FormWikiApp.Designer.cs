@@ -102,8 +102,8 @@
             this.label1.TabIndex = 29;
             this.label1.Text = "Search";
             this.label1.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            this.toolTip1.SetToolTip(this.label1, "Search for record with same name as input.\r\nPress \'Enter\' in textbox to search.\r\n" +
-        "(Will ignore case)");
+            this.toolTip1.SetToolTip(this.label1, "Search for record with same name as input.\r\nPress button to search.\r\n(Will ignore" +
+        " case)");
             // 
             // statusStrip1
             // 
@@ -129,52 +129,63 @@
             // btnDelete
             // 
             this.btnDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDelete.Location = new System.Drawing.Point(191, 125);
+            this.btnDelete.Location = new System.Drawing.Point(191, 152);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(90, 23);
             this.btnDelete.TabIndex = 27;
             this.btnDelete.Text = "Delete Record";
+            this.toolTip1.SetToolTip(this.btnDelete, "Delete the record currently selected in the list & all its data\r\n(A record must b" +
+        "e selected)");
+            this.btnDelete.UseMnemonic = false;
             this.btnDelete.UseVisualStyleBackColor = true;
             this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // btnEdit
             // 
-            this.btnEdit.Location = new System.Drawing.Point(191, 96);
+            this.btnEdit.Location = new System.Drawing.Point(191, 127);
             this.btnEdit.Name = "btnEdit";
             this.btnEdit.Size = new System.Drawing.Size(90, 23);
             this.btnEdit.TabIndex = 26;
             this.btnEdit.Text = "Edit Record";
+            this.toolTip1.SetToolTip(this.btnEdit, "Update the record currently selected in list to match the fields\r\n(All fields mus" +
+        "t be filled & valid)");
+            this.btnEdit.UseMnemonic = false;
             this.btnEdit.UseVisualStyleBackColor = true;
             this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(191, 67);
+            this.btnAdd.Location = new System.Drawing.Point(191, 102);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(90, 23);
             this.btnAdd.TabIndex = 25;
             this.btnAdd.Text = "Add Record";
+            this.toolTip1.SetToolTip(this.btnAdd, "Add a new record to list\r\n(All fields must be filled & valid)");
+            this.btnAdd.UseMnemonic = false;
             this.btnAdd.UseVisualStyleBackColor = true;
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // btnOpen
             // 
-            this.btnOpen.Location = new System.Drawing.Point(191, 38);
+            this.btnOpen.Location = new System.Drawing.Point(191, 67);
             this.btnOpen.Name = "btnOpen";
             this.btnOpen.Size = new System.Drawing.Size(90, 23);
             this.btnOpen.TabIndex = 24;
             this.btnOpen.Text = "Open File";
+            this.toolTip1.SetToolTip(this.btnOpen, "Open a .dat file & load a saved list from it\r\n(default name: AT2_Info)");
             this.btnOpen.UseMnemonic = false;
             this.btnOpen.UseVisualStyleBackColor = true;
             this.btnOpen.Click += new System.EventHandler(this.btnOpen_Click);
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(191, 9);
+            this.btnSave.Location = new System.Drawing.Point(191, 43);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(90, 23);
             this.btnSave.TabIndex = 23;
             this.btnSave.Text = "Save to File";
+            this.toolTip1.SetToolTip(this.btnSave, "Save list to a .dat file\r\n(default name: AT2_Info)");
+            this.btnSave.UseMnemonic = false;
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
@@ -208,7 +219,7 @@
             this.tbSearch.Name = "tbSearch";
             this.tbSearch.Size = new System.Drawing.Size(121, 20);
             this.tbSearch.TabIndex = 17;
-            this.toolTip1.SetToolTip(this.tbSearch, "Search for record with same name as input\r\nPress \'Enter\' to search");
+            this.toolTip1.SetToolTip(this.tbSearch, "Searches list for record with same name as input\r\n(Ignores Case)");
             // 
             // listViewInfo
             // 
@@ -224,6 +235,8 @@
             this.listViewInfo.Name = "listViewInfo";
             this.listViewInfo.Size = new System.Drawing.Size(205, 275);
             this.listViewInfo.TabIndex = 22;
+            this.toolTip1.SetToolTip(this.listViewInfo, "Select a record to display its details in the 4 fields. \r\nTo Edit/Delete a record" +
+        " must be selected.");
             this.listViewInfo.UseCompatibleStateImageBehavior = false;
             this.listViewInfo.View = System.Windows.Forms.View.Details;
             this.listViewInfo.SelectedIndexChanged += new System.EventHandler(this.listRecords_SelectedIndexChanged);
@@ -300,16 +313,18 @@
             this.cbCategory.Name = "cbCategory";
             this.cbCategory.Size = new System.Drawing.Size(121, 21);
             this.cbCategory.TabIndex = 3;
-            this.toolTip1.SetToolTip(this.cbCategory, "Choose a category from the list.");
+            this.toolTip1.SetToolTip(this.cbCategory, "Choose a category from the dropdown list.");
             // 
             // btnSearch
             // 
             this.btnSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSearch.Location = new System.Drawing.Point(191, 154);
+            this.btnSearch.Location = new System.Drawing.Point(189, 12);
             this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(90, 23);
+            this.btnSearch.Size = new System.Drawing.Size(94, 23);
             this.btnSearch.TabIndex = 34;
-            this.btnSearch.Text = "Search Record";
+            this.btnSearch.Text = "Search by Name";
+            this.toolTip1.SetToolTip(this.btnSearch, "Press to searches list for record with same name as input\r\n(Ignores Case)");
+            this.btnSearch.UseMnemonic = false;
             this.btnSearch.UseVisualStyleBackColor = true;
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
