@@ -601,14 +601,15 @@ namespace AT2_WikiApp
             // Writing to file
             try
             {
-                for (int i = 0; i < nullIndex; i++)
+                foreach (Information i in Wiki)
                 {
-                    bw.Write(myRecordsArray[i, 0]);
-                    bw.Write(myRecordsArray[i, 1]);
-                    bw.Write(myRecordsArray[i, 2]);
-                    bw.Write(myRecordsArray[i, 3]);
+                    bw.Write(i.gsDsName);
+                    bw.Write(i.gsDsCategory);
+                    bw.Write(i.gsDsStructure);
+                    bw.Write(i.gsDsDefinition);
                 }
-                StatusMsg(nullIndex + " record/s were successfully saved to:\n" + filePath, true);
+                StatusMsg(Wiki.Count + " record/s were successfully saved to:\n" 
+                    + filePath, true);
             }
             catch (Exception fe)
             {
@@ -617,7 +618,7 @@ namespace AT2_WikiApp
             }
 
             bw.Close();
-        }//@@@@_EDIT_@@@@
+        }
 
         // Reading from selected file (AT2_Info.dat) 
         private void FileReader(string filePath)
@@ -635,29 +636,25 @@ namespace AT2_WikiApp
                 return;
             }
 
-            // Clear current array by initialising again
-            myRecordsArray = new string[maxRecords, 4];
+            // Clear current list by initialising again
+            Wiki = new List<Information>();
             // Read data
             try
             {
-                for (int i = 0; i < maxRecords; i++)
+                while (br.BaseStream.Position != br.BaseStream.Length)
                 {
-                    // Exit loop if reached end of file
-                    if (br.BaseStream.Position == br.BaseStream.Length)
-                    { break; }
-                    myRecordsArray[i, 0] = br.ReadString();
-                    myRecordsArray[i, 1] = br.ReadString();
-                    myRecordsArray[i, 2] = br.ReadString();
-                    myRecordsArray[i, 3] = br.ReadString();
-                    nullIndex = i;
+                    Information info = new Information();
+                    info.gsDsName = br.ReadString();
+                    info.gsDsCategory = br.ReadString();
+                    info.gsDsStructure = br.ReadString();
+                    info.gsDsDefinition = br.ReadString();
+                    Wiki.Add(info);
                 }
-                nullIndex++;
-                StatusMsg("Loaded " + nullIndex + " record/s from:\n" + filePath, true);
+                StatusMsg("Loaded " + Wiki.Count + " record/s from:\n" + filePath, true);
             }
             catch (EndOfStreamException eof) // Catches the EOF
             {
                 MessageBox.Show("EOF reached, no more data.");
-                nullIndex++;
             }
             catch (Exception fe)
             {
@@ -665,7 +662,7 @@ namespace AT2_WikiApp
                 + "\nFilepath: " + filePath + "\n\n" + fe.Message);
             }
             br.Close();
-        }//@@@@_EDIT_@@@@
+        }
 
         // On load sets InitialDirectory & status strip to display some tips
         private void FormWikiApp_Load(object sender, EventArgs e)
@@ -673,21 +670,22 @@ namespace AT2_WikiApp
             string initialPath = Path.Combine(Application.StartupPath, @"");
             saveFileDialogWiki.InitialDirectory = initialPath;
             openFileDialogWiki.InitialDirectory = initialPath;
+            InitialiseCat();
             StatusMsg("Tips: " +
-                "1. Press 'Load from File' to load saved records.\n         " +
-                "2. Press the 'Enter' key in the 'Search' box to search input.\n" +
+                "1. Press 'Open File' to load saved records.\n         " +
+                "2. Search is case insensitive.\n" +
                 "         3. Records with the same name cannot be added.\n" +
                 "         4. Clicking on a record will select it & show its details " +
                 "in the fields.\n         5. Double click the 'Name' field to clear " +
-                "all 4 fields.", false);
-            InitialiseCat();
-        }//@@@@_EDIT_@@@@
+                "all fields.\n         6. Records can't contain numeric or special " +
+                "characters.", false);
+        }
 
         // On close asks to choose location & name to save the list (AT2_Info.dat)
         private void FormWikiApp_FormClosing(object sender, FormClosingEventArgs e)
         {
             // If any records in array ask to save
-            if (nullIndex != 0)
+            if (Wiki.Count > 0)
             {
                 saveFileDialogWiki.FileName = "AT2_Info";
                 if (saveFileDialogWiki.ShowDialog() == DialogResult.OK)
@@ -701,6 +699,6 @@ namespace AT2_WikiApp
                         saveFileDialogWiki.FileName);
                 }
             }
-        }//@@@@_EDIT_@@@@
+        }
     }
 }
