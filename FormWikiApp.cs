@@ -196,7 +196,7 @@ namespace AT2_WikiApp
                 myInfo.gsDsName = tbSearch.Text;
                 int matchIndex = Wiki.BinarySearch(myInfo);
                 ClearFields();
-                if (matchIndex != -1)
+                if (matchIndex > -1)
                 {
                     // Selects a record in listview which is detected by
                     //   listRecords_SelectedIndexChanged() so the record is displayed
@@ -468,7 +468,7 @@ namespace AT2_WikiApp
             int count = 0;
             foreach (RadioButton r in grpStructure.Controls)
             {
-                if (r.Text == Wiki[lstIndex].gsDsName)
+                if (r.Text == Wiki[lstIndex].gsDsStructure)
                 {
                     return count;
                 }
@@ -554,7 +554,7 @@ namespace AT2_WikiApp
         {
             tbSearch.Clear();
             tbName.Clear();
-            cbCategory.Text = "";
+            cbCategory.SelectedIndex = -1;
             foreach (RadioButton r in grpStructure.Controls)
             {
                 r.Checked = false;
@@ -671,14 +671,14 @@ namespace AT2_WikiApp
             saveFileDialogWiki.InitialDirectory = initialPath;
             openFileDialogWiki.InitialDirectory = initialPath;
             InitialiseCat();
+            string idn = "\n         ";
             StatusMsg("Tips: " +
-                "1. Press 'Open File' to load saved records.\n         " +
-                "2. Search is case insensitive.\n" +
-                "         3. Records with the same name cannot be added.\n" +
-                "         4. Clicking on a record will select it & show its details " +
-                "in the fields.\n         5. Double click the 'Name' field to clear " +
-                "all fields.\n         6. Records can't contain numeric or special " +
-                "characters.", false);
+                "1. Press 'Open File' to load saved records." + idn +
+                "2. Search is case insensitive." + idn +
+                "3. Records with the same name cannot be added." + idn +
+                "4. Clicking on a record will select it & show its details in the fields."
+                + idn + "5. Double click the 'Name' field to clear all fields." + idn +
+                "6. Records can't contain numeric or special characters.", false);
         }
 
         // On close asks to choose location & name to save the list (AT2_Info.dat)
