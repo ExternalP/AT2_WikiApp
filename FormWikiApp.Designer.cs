@@ -102,8 +102,8 @@
             this.label1.TabIndex = 29;
             this.label1.Text = "Search";
             this.label1.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            this.toolTip1.SetToolTip(this.label1, "Search for record with same name as input.\r\nPress button to search.\r\n(Will ignore" +
-        " case)");
+            this.toolTip1.SetToolTip(this.label1, "Search for record with same name as input.\r\nPress button to search. (Case Sensiti" +
+        "ve)");
             // 
             // statusStrip1
             // 
@@ -219,7 +219,7 @@
             this.tbSearch.Name = "tbSearch";
             this.tbSearch.Size = new System.Drawing.Size(121, 20);
             this.tbSearch.TabIndex = 17;
-            this.toolTip1.SetToolTip(this.tbSearch, "Searches list for record with same name as input\r\n(Ignores Case)");
+            this.toolTip1.SetToolTip(this.tbSearch, "Searches list for record with same name as input\r\n(Case Sensitive)");
             // 
             // listViewInfo
             // 
@@ -323,7 +323,7 @@
             this.btnSearch.Size = new System.Drawing.Size(94, 23);
             this.btnSearch.TabIndex = 34;
             this.btnSearch.Text = "Search by Name";
-            this.toolTip1.SetToolTip(this.btnSearch, "Press to searches list for record with same name as input\r\n(Ignores Case)");
+            this.toolTip1.SetToolTip(this.btnSearch, "Press to searches list for record with same name as input\r\n(Case Sensitive)");
             this.btnSearch.UseMnemonic = false;
             this.btnSearch.UseVisualStyleBackColor = true;
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);

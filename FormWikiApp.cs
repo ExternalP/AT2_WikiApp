@@ -186,7 +186,7 @@ namespace AT2_WikiApp
 
         // btn to search list for name that matches tbSearch & if found 
         //   selects record(highlight) in listview displaying its details
-        // Focuses & clear tbSearch after search
+        // Focuses & clear tbSearch after search (CASE SENSITIVE)
         private void btnSearch_Click(object sender, EventArgs e)
         {
             listViewInfo.SelectedIndices.Clear();
@@ -674,7 +674,7 @@ namespace AT2_WikiApp
             string idn = "\n         ";
             StatusMsg("Tips: " +
                 "1. Press 'Open File' to load saved records." + idn +
-                "2. Search is case insensitive." + idn +
+                "2. Search is case sensitive." + idn +
                 "3. Records with the same name cannot be added." + idn +
                 "4. Clicking on a record will select it & show its details in the fields."
                 + idn + "5. Double click the 'Name' field to clear all fields." + idn +
