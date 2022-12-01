@@ -104,7 +104,7 @@ namespace AT2_WikiApp
             if (listViewInfo.SelectedIndices.Count > 0)
             {
                 int selIndex = listViewInfo.SelectedIndices[0];
-                DialogResult result = MessageBox.Show(("Are sure you want to delete "
+                DialogResult result = MessageBox.Show(("Are you sure you want to delete "
                     + "the record for \"" + Wiki[selIndex].gsDsName
                     + "\" at index " + selIndex + "\n\nClick 'Yes' to delete the"
                     + " record\nClick 'No' to cancel deletion"),
