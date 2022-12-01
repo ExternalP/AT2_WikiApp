@@ -92,7 +92,7 @@ namespace AT2_WikiApp
             }
             else
             {
-                StatusMsg("Error: Record was NOT editted \nReason: No record "
+                StatusMsg("Error: Record was NOT edited \nReason: No record "
                     + "was selected to edit", true);
             }
         }
@@ -351,7 +351,7 @@ namespace AT2_WikiApp
         // Edit record & update list if valid at sent index
         private bool EditRecord(int editIndex)
         {
-            bool wasEditted = false;
+            bool wasedited = false;
             string statMsg = "", nameChange = "";
             // if false DONT edit record
             bool hasData = true, noDuplicate = true;
@@ -393,7 +393,7 @@ namespace AT2_WikiApp
             // Checks if any inputs were invalid
             if (hasData == false)
             {
-                statMsg += "ERROR Invalid Input: Item will NOT be editted."
+                statMsg += "ERROR Invalid Input: Item will NOT be edited."
                     + "\nReason: The following field(s) are empty/invalid: "
                     + missingField.Remove(missingField.Length - 2);
             }
@@ -401,7 +401,7 @@ namespace AT2_WikiApp
             {
                 tbName.Focus();
                 tbName.SelectAll();
-                statMsg += "ERROR Invalid Input: Record was NOT editted"
+                statMsg += "ERROR Invalid Input: Record was NOT edited"
                     + "\nReason: Duplicate names are NOT ALLOWED "
                     + "\nA record with the name: \"" + tbName.Text
                     + "\" already exists at the list ";
@@ -415,14 +415,14 @@ namespace AT2_WikiApp
                 Wiki[editIndex].gsDsStructure = newStructure;
                 Wiki[editIndex].gsDsDefinition = tbDefinition.Text;
 
-                wasEditted = true;
+                wasedited = true;
                 statMsg += "Record called \"" + Wiki[editIndex].gsDsName
-                    + "\" was editted" + nameChange;
+                    + "\" was edited" + nameChange;
                 Wiki.Sort();
             }
             // Display message in status strip & true to word wrap
             StatusMsg(statMsg, true);
-            return wasEditted;
+            return wasedited;
         }
 
         // Delete record after confirmation at sent index
